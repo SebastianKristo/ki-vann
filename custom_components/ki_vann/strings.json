@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "KI Vann",
+        "description": "Bare vannmåleren er påkrevd. Alt annet gjør fordelingen bedre, men modellen virker uten — den legger da mer i «basis og udefinert», som er det ærlige svaret når ingen sensor så hva vannet gikk til.",
+        "data": {
+          "navn": "Navn på anlegget, f.eks. Hjemme eller Hytta",
+          "maaler": "Vannmåler (kumulativ stand)",
+          "enhet": "Enhet på måleren",
+          "time_sensor": "Har du en ferdig «forbruk denne timen»-sensor, bruk den i stedet (L)",
+          "bad": "Bevegelse eller nærvær på badet — gir dusj og håndvask",
+          "do": "Bevegelse eller nærvær på toalettet — gir spyling og håndvask",
+          "kjokken": "Bevegelse på kjøkkenet — gir oppvask og matlaging",
+          "vaskemaskin": "Vaskemaskin (på/av, eller «tid igjen»)",
+          "oppvaskmaskin": "Oppvaskmaskin (på/av, eller «tid igjen»)",
+          "hage": "Utendørs vanning (bryter eller ventil)",
+          "hage_liter": "Egen måler for utendørs (valgfri — da estimeres den ikke)",
+          "personer": "Hvem som er hjemme",
+          "dusj_min": "Minutter på badet før det regnes som dusj",
+          "opphold_gap": "Minutter uten bevegelse som avslutter et besøk",
+          "vindu_dager": "Dager historikk læringen bruker",
+          "laering": "Lær literprisene fra forbruket"
+        }
+      }
+    },
+    "error": {
+      "maaler_mangler": "Velg vannmåleren – uten den finnes det ingenting å fordele."
+    },
+    "abort": {
+      "already_configured": "Denne måleren er allerede satt opp."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "KI Vann",
+        "data": {
+          "navn": "Navn på anlegget, f.eks. Hjemme eller Hytta",
+          "maaler": "Vannmåler (kumulativ stand)",
+          "enhet": "Enhet på måleren",
+          "time_sensor": "Har du en ferdig «forbruk denne timen»-sensor, bruk den i stedet (L)",
+          "bad": "Bevegelse eller nærvær på badet — gir dusj og håndvask",
+          "do": "Bevegelse eller nærvær på toalettet — gir spyling og håndvask",
+          "kjokken": "Bevegelse på kjøkkenet — gir oppvask og matlaging",
+          "vaskemaskin": "Vaskemaskin (på/av, eller «tid igjen»)",
+          "oppvaskmaskin": "Oppvaskmaskin (på/av, eller «tid igjen»)",
+          "hage": "Utendørs vanning (bryter eller ventil)",
+          "hage_liter": "Egen måler for utendørs (valgfri — da estimeres den ikke)",
+          "personer": "Hvem som er hjemme",
+          "dusj_min": "Minutter på badet før det regnes som dusj",
+          "opphold_gap": "Minutter uten bevegelse som avslutter et besøk",
+          "vindu_dager": "Dager historikk læringen bruker",
+          "laering": "Lær literprisene fra forbruket"
+        }
+      }
+    }
+  }
+}

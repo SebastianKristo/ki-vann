@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "KI Vann",
+        "description": "Only the water meter is required. Everything else improves the split.",
+        "data": {
+          "navn": "Name of the site, e.g. Home or Cabin",
+          "maaler": "Water meter (cumulative)",
+          "enhet": "Meter unit",
+          "time_sensor": "Ready-made hourly usage sensor (L), if you have one",
+          "bad": "Bathroom motion or presence — gives showers and hand washing",
+          "do": "Toilet motion or presence — gives flushes and hand washing",
+          "kjokken": "Kitchen motion — gives washing up and cooking",
+          "vaskemaskin": "Washing machine",
+          "oppvaskmaskin": "Dishwasher",
+          "hage": "Outdoor watering",
+          "hage_liter": "Separate outdoor meter (optional)",
+          "personer": "Who is home",
+          "dusj_min": "Minutes in the bathroom to count as a shower",
+          "opphold_gap": "Minutes without motion that ends a visit",
+          "vindu_dager": "Days of history used for learning",
+          "laering": "Learn litres per event"
+        }
+      }
+    },
+    "error": {
+      "maaler_mangler": "Velg vannmåleren – uten den finnes det ingenting å fordele."
+    },
+    "abort": {
+      "already_configured": "Denne måleren er allerede satt opp."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "KI Vann",
+        "data": {
+          "navn": "Name of the site, e.g. Home or Cabin",
+          "maaler": "Water meter (cumulative)",
+          "enhet": "Meter unit",
+          "time_sensor": "Ready-made hourly usage sensor (L), if you have one",
+          "bad": "Bathroom motion or presence — gives showers and hand washing",
+          "do": "Toilet motion or presence — gives flushes and hand washing",
+          "kjokken": "Kitchen motion — gives washing up and cooking",
+          "vaskemaskin": "Washing machine",
+          "oppvaskmaskin": "Dishwasher",
+          "hage": "Outdoor watering",
+          "hage_liter": "Separate outdoor meter (optional)",
+          "personer": "Who is home",
+          "dusj_min": "Minutes in the bathroom to count as a shower",
+          "opphold_gap": "Minutes without motion that ends a visit",
+          "vindu_dager": "Days of history used for learning",
+          "laering": "Learn litres per event"
+        }
+      }
+    }
+  }
+}

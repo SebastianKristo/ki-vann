@@ -1,0 +1,13 @@
+{
+  "domain": "ki_vann",
+  "name": "KI Vann",
+  "version": "1.0.0",
+  "codeowners": ["@SebastianKristo"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/SebastianKristo/ki-vann",
+  "integration_type": "hub",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/SebastianKristo/ki-vann/issues",
+  "requirements": []
+}

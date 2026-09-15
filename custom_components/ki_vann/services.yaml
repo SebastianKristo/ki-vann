@@ -1,0 +1,49 @@
+lær_na:
+  name: Lær nå
+  description: >-
+    Trener modellen med én gang i stedet for å vente på neste timesoppdatering.
+  fields:
+    anlegg:
+      name: Anlegg
+      description: Navnet på oppføringen, f.eks. «Hjemme» eller «Hytta». Tomt = alle.
+      selector: { text: }
+
+nullstill_laering:
+  name: Nullstill læringen
+  description: >-
+    Setter literprisene tilbake til startgjetningene. Historikken beholdes, så modellen
+    lærer seg opp igjen av seg selv.
+  fields:
+    anlegg:
+      name: Anlegg
+      selector: { text: }
+
+glem_historikk:
+  name: Glem historikken
+  description: >-
+    Kaster alle lagrede timer. Bruk denne hvis oppsettet har vært galt en stund, så
+    modellen ikke lærer av feil data.
+  fields:
+    anlegg:
+      name: Anlegg
+      selector: { text: }
+
+sett_liter:
+  name: Sett liter per hendelse
+  description: >-
+    Overstyrer én literpris manuelt. Vet du at dusjen bruker 9 L/min og at dere dusjer
+    åtte minutter, er 72 et bedre startpunkt enn gjetningen. Modellen lærer videre derfra.
+  fields:
+    kategori:
+      name: Kategori
+      required: true
+      selector:
+        select:
+          options: [dusj, do, handvask, oppvask_hand, vaskemaskin, oppvaskmaskin, hage, basis]
+    liter:
+      name: Liter
+      required: true
+      selector: { number: { min: 0, max: 2000, step: 0.5, mode: box } }
+    anlegg:
+      name: Anlegg
+      selector: { text: }
