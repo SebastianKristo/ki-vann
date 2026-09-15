@@ -20,10 +20,13 @@ from homeassistant.helpers import selector
 from .const import (
     CONF_BAD, CONF_DO, CONF_DUSJ_MIN, CONF_ENHET, CONF_HAGE, CONF_HAGE_LITER,
     CONF_KJOKKEN, CONF_LAERING, CONF_MAALER, CONF_OPPHOLD_GAP, CONF_OPPVASKMASKIN,
-    CONF_PERSONER, CONF_TIME_SENSOR, CONF_VASKEMASKIN, CONF_VINDU_DAGER, DOMAIN, STD,
+    CONF_PERSONER, CONF_PRIS, CONF_TIME_SENSOR, CONF_VASKEMASKIN, CONF_VINDU_DAGER, DOMAIN, STD,
 )
 
 NAERVAER = ["binary_sensor", "input_boolean", "switch", "sensor"]
+# Utendørs vanning styres på mange vis: en bryter, en ventil, et relé bak en
+# input_boolean, eller et valg. Lista er derfor romslig.
+VANNING = ["switch", "valve", "binary_sensor", "input_boolean", "select", "input_select"]
 
 
 def _tall(min_: float, max_: float, steg: float, enhet: str):
@@ -58,23 +61,27 @@ def _skjema(d: dict[str, Any]) -> vol.Schema:
 
         # --- hvitevarer og utendørs
         vol.Optional(CONF_VASKEMASKIN): selector.EntitySelector(
-            selector.EntitySelectorConfig(domain=NAERVAER + ["binary_sensor"])),
+            selector.EntitySelectorConfig(domain=NAERVAER)),
         vol.Optional(CONF_OPPVASKMASKIN): selector.EntitySelector(
-            selector.EntitySelectorConfig(domain=NAERVAER + ["binary_sensor"])),
+            selector.EntitySelectorConfig(domain=NAERVAER)),
         vol.Optional(CONF_HAGE): selector.EntitySelector(
-            selector.EntitySelectorConfig(domain=["switch", "binary_sensor", "valve"])),
+            selector.EntitySelectorConfig(domain=VANNING)),
         vol.Optional(CONF_HAGE_LITER): selector.EntitySelector(
             selector.EntitySelectorConfig(domain="sensor")),
 
         # --- hvem som er hjemme
+        # `switch` er med fordi posisjonsbrytere ofte er nettopp det: på = her,
+        # av = borte. Alle domenene leses likt — «on» og «home» betyr hjemme.
         vol.Optional(CONF_PERSONER): selector.EntitySelector(
             selector.EntitySelectorConfig(
-                domain=["person", "device_tracker", "binary_sensor", "input_boolean"],
+                domain=["person", "device_tracker", "binary_sensor", "input_boolean",
+                        "switch", "input_select", "select"],
                 multiple=True)),
 
         # --- innstillinger
         vol.Required(CONF_DUSJ_MIN, default=d.get(CONF_DUSJ_MIN, STD[CONF_DUSJ_MIN])): _tall(1, 20, 0.5, "min"),
         vol.Required(CONF_OPPHOLD_GAP, default=d.get(CONF_OPPHOLD_GAP, STD[CONF_OPPHOLD_GAP])): _tall(1, 15, 0.5, "min"),
+        vol.Required(CONF_PRIS, default=d.get(CONF_PRIS, STD[CONF_PRIS])): _tall(0, 200, 0.5, "kr/m³"),
         vol.Required(CONF_VINDU_DAGER, default=d.get(CONF_VINDU_DAGER, STD[CONF_VINDU_DAGER])): _tall(7, 180, 1, "dager"),
         vol.Required(CONF_LAERING, default=d.get(CONF_LAERING, STD[CONF_LAERING])): selector.BooleanSelector(),
     })

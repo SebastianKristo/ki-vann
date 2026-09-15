@@ -28,6 +28,7 @@ CONF_PERSONER = "personer"             # liste med person/device_tracker/binary_
 # --- innstillinger
 CONF_DUSJ_MIN = "dusj_min"             # minutter nærvær på bad før det regnes som dusj
 CONF_OPPHOLD_GAP = "opphold_gap"       # minutter uten bevegelse som avslutter et opphold
+CONF_PRIS = "pris"                     # kr per m³, vann og avløp samlet
 CONF_LAERING = "laering"               # lær literprisene fra historikken?
 CONF_VINDU_DAGER = "vindu_dager"       # hvor mange dager historikk læringen bruker
 
@@ -35,6 +36,7 @@ STD = {
     CONF_ENHET: "m3",
     CONF_DUSJ_MIN: 4.0,
     CONF_OPPHOLD_GAP: 3.0,
+    CONF_PRIS: 45.0,
     CONF_LAERING: True,
     CONF_VINDU_DAGER: 60,
 }

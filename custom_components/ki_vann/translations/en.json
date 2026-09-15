@@ -16,11 +16,12 @@
           "oppvaskmaskin": "Dishwasher",
           "hage": "Outdoor watering",
           "hage_liter": "Separate outdoor meter (optional)",
-          "personer": "Who is home",
+          "personer": "Who is home (switch on = home, off = away)",
           "dusj_min": "Minutes in the bathroom to count as a shower",
           "opphold_gap": "Minutes without motion that ends a visit",
           "vindu_dager": "Days of history used for learning",
-          "laering": "Learn litres per event"
+          "laering": "Learn litres per event",
+          "pris": "Price for water and sewage combined"
         }
       }
     },
@@ -47,11 +48,12 @@
           "oppvaskmaskin": "Dishwasher",
           "hage": "Outdoor watering",
           "hage_liter": "Separate outdoor meter (optional)",
-          "personer": "Who is home",
+          "personer": "Who is home (switch on = home, off = away)",
           "dusj_min": "Minutes in the bathroom to count as a shower",
           "opphold_gap": "Minutes without motion that ends a visit",
           "vindu_dager": "Days of history used for learning",
-          "laering": "Learn litres per event"
+          "laering": "Learn litres per event",
+          "pris": "Price for water and sewage combined"
         }
       }
     }

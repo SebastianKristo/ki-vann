@@ -16,11 +16,12 @@
           "oppvaskmaskin": "Oppvaskmaskin (på/av, eller «tid igjen»)",
           "hage": "Utendørs vanning (bryter eller ventil)",
           "hage_liter": "Egen måler for utendørs (valgfri — da estimeres den ikke)",
-          "personer": "Hvem som er hjemme",
+          "personer": "Hvem som er hjemme (bryter på = hjemme, av = borte)",
           "dusj_min": "Minutter på badet før det regnes som dusj",
           "opphold_gap": "Minutter uten bevegelse som avslutter et besøk",
           "vindu_dager": "Dager historikk læringen bruker",
-          "laering": "Lær literprisene fra forbruket"
+          "laering": "Lær literprisene fra forbruket",
+          "pris": "Pris for vann og avløp samlet"
         }
       }
     },
@@ -47,11 +48,12 @@
           "oppvaskmaskin": "Oppvaskmaskin (på/av, eller «tid igjen»)",
           "hage": "Utendørs vanning (bryter eller ventil)",
           "hage_liter": "Egen måler for utendørs (valgfri — da estimeres den ikke)",
-          "personer": "Hvem som er hjemme",
+          "personer": "Hvem som er hjemme (bryter på = hjemme, av = borte)",
           "dusj_min": "Minutter på badet før det regnes som dusj",
           "opphold_gap": "Minutter uten bevegelse som avslutter et besøk",
           "vindu_dager": "Dager historikk læringen bruker",
-          "laering": "Lær literprisene fra forbruket"
+          "laering": "Lær literprisene fra forbruket",
+          "pris": "Pris for vann og avløp samlet"
         }
       }
     }

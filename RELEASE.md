@@ -1,34 +1,24 @@
-# KI Vann 1.0.0
+# KI Vann 1.0.2
 
-Ny integrasjon som fordeler vannforbruket på dusj, toalett, håndvask, oppvask,
-hvitevarer og utendørs — og lærer literprisen per hendelse av ditt eget forbruk.
+## Utendørs vanning tok ikke imot brytere
 
-## Modellen
+Feltet tillot `switch`, `binary_sensor` og `valve`, men det holdt ikke i praksis. Lista er
+utvidet til `switch`, `valve`, `binary_sensor`, `input_boolean`, `select` og
+`input_select` — utendørs vanning styres på mange vis, og et relé bak en `input_boolean`
+er like vanlig som en ventil.
 
-Hendelser telles fra bevegelsessensorene: langt besøk på badet er dusj, kort er håndvask,
-besøk på doen er spyling pluss håndvask, hvitevarer teller sykluser. Hver time gir en
-likning `hendelser × literpris = målt forbruk`, og systemet løses med ikke-negativ minste
-kvadraters metode — koordinatvis eksakt minimering, i ren Python uten avhengigheter.
+Samtidig ryddet jeg bort en duplisert `binary_sensor` i domenelistene for vaskemaskin og
+oppvaskmaskin.
 
-Startgjetningene virker som prior og veier mindre etter hvert som datasettet vokser.
-Grenser per kategori hindrer at én rar time drar dusjen til 5 liter eller 500.
+## Vannprisen og to nye sensorer
 
-Fordelingen skaleres så summen blir nøyaktig det måleren viste. Differansen havner i
-«basis og udefinert», som dermed er et lekkasjevarsel: går det vann om natten uten at noen
-er hjemme, vokser den.
+Nytt felt: **pris for vann og avløp samlet**, i kr/m³. Standard 45, som er omtrent
+landsgjennomsnittet — sjekk din egen kommunale faktura, tallet varierer mye.
 
-## Hva modellen ikke kan
+* **Vann i dag** — summen av alle kategoriene, med liter per person som attributt.
+* **Vannkostnad i dag** — kroner, med kostnad per kategori som attributter.
 
-Håndvask skjer nesten alltid sammen med en dusj eller en dotur. De to er da matematisk
-uskillelige — summen kan læres, fordelingen mellom dem ikke. Håndvask holdes derfor nær
-startgjetningen med ekstra prior-vekt, og dotur tar opp resten. Har du korte badbesøk uten
-dusj, blir begge identifiserbare og treffer bedre.
+## Hvem som er hjemme
 
-Testet mot syntetiske timer med kjente literpriser: dusj, oppvask og hvitevarer læres
-innenfor 1–8 %, og modellen treffer målingene med et typisk avvik på under 5 % av en
-vanlig time.
-
-## Flere anlegg
-
-Hvert anlegg er sin egen oppføring med egne sensorer og egen læring, så hytta kan settes
-opp ved siden av huset. Samme måler kan ikke brukes to ganger.
+`switch`, `input_select` og `select` kan nå velges, ikke bare `person` og
+`binary_sensor`. Posisjonsbrytere er ofte `switch`: på betyr her, av betyr borte.

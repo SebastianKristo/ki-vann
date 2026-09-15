@@ -103,3 +103,29 @@ def test_maaleren_har_rett_naar_anslaget_er_for_hoyt():
     skala = min(5.0, maalt / s)
     fordelt = sum(v * skala for v in anslag.values())
     assert abs(fordelt - maalt) < 0.01, fordelt
+
+
+def test_hjemme_leses_fra_bryter_og_person():
+    """Posisjonsbrytere er `switch`: på betyr her, av betyr borte. Samme lesing
+    gjelder person-entiteter, som bruker «home» i stedet for «on»."""
+    from types import SimpleNamespace
+    from custom_components.ki_vann.coordinator import VannMotor
+
+    m = object.__new__(VannMotor)
+    tilstander = {
+        "switch.seb_hjemme": SimpleNamespace(state="on"),
+        "switch.cybele_hjemme": SimpleNamespace(state="off"),
+        "person.rune": SimpleNamespace(state="home"),
+        "person.ukjent": SimpleNamespace(state="not_home"),
+        "binary_sensor.gjest": SimpleNamespace(state="unavailable"),
+    }
+    m.hass = SimpleNamespace(states=SimpleNamespace(get=tilstander.get))
+    m.entry = SimpleNamespace(data={"personer": list(tilstander)}, options={})
+
+    assert m.personer_hjemme() == 2          # seb (on) og rune (home)
+
+    m.entry = SimpleNamespace(data={"personer": ["switch.cybele_hjemme"]}, options={})
+    assert m.personer_hjemme() == 0
+
+    m.entry = SimpleNamespace(data={}, options={})
+    assert m.personer_hjemme() == 0          # ingen valgt er ikke en feil

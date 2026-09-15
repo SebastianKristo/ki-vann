@@ -6,8 +6,10 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+from homeassistant.const import CURRENCY_EURO  # noqa: F401  (ikke i bruk, men holder importen stabil)
+
 from .const import (
-    DOMAIN, KATEGORI_IKON, KATEGORI_NAVN, KATEGORIER, START_LITER,
+    CONF_PRIS, DOMAIN, KATEGORI_IKON, KATEGORI_NAVN, KATEGORIER, START_LITER, STD,
 )
 from .entity import VannEntitet
 
@@ -15,7 +17,7 @@ from .entity import VannEntitet
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry,
                             legg_til: AddEntitiesCallback) -> None:
     m = hass.data[DOMAIN][entry.entry_id]
-    ut: list[SensorEntity] = [Modell(m), Forklart(m), Storste(m)]
+    ut: list[SensorEntity] = [Modell(m), Forklart(m), Storste(m), Totalt(m), Kostnad(m)]
     for k in KATEGORIER:
         ut.append(Kategori(m, k, "i_dag"))
         ut.append(Kategori(m, k, "timen"))
@@ -55,6 +57,53 @@ class Kategori(VannEntitet, SensorEntity):
         else:
             d["hendelser_timen"] = self.motor.hendelser.get(self.kat)
         return d
+
+
+class Totalt(VannEntitet, SensorEntity):
+    """Alt vann i dag, summen av kategoriene."""
+
+    _attr_native_unit_of_measurement = "L"
+    _attr_suggested_display_precision = 0
+    _attr_state_class = SensorStateClass.TOTAL_INCREASING
+    _attr_icon = "mdi:water"
+
+    def __init__(self, motor) -> None:
+        super().__init__(motor, "totalt", "Vann i dag")
+
+    @property
+    def native_value(self):
+        return round(sum(self.motor.i_dag.values()), 1)
+
+    @property
+    def extra_state_attributes(self) -> dict:
+        return {"per_person": (round(sum(self.motor.i_dag.values())
+                                     / max(1, self.motor.personer_hjemme()), 1))}
+
+
+class Kostnad(VannEntitet, SensorEntity):
+    """Hva vannet koster i dag, med prisen for vann og avløp samlet."""
+
+    _attr_native_unit_of_measurement = "kr"
+    _attr_suggested_display_precision = 1
+    _attr_state_class = SensorStateClass.TOTAL
+    _attr_icon = "mdi:cash"
+
+    def __init__(self, motor) -> None:
+        super().__init__(motor, "kostnad", "Vannkostnad i dag")
+
+    def _pris(self) -> float:
+        return float(self.motor.cfg.get(CONF_PRIS, STD[CONF_PRIS]) or 0)
+
+    @property
+    def native_value(self):
+        return round(sum(self.motor.i_dag.values()) / 1000.0 * self._pris(), 2)
+
+    @property
+    def extra_state_attributes(self) -> dict:
+        p = self._pris()
+        return {"kr_per_m3": p,
+                **{KATEGORI_NAVN[k]: round(v / 1000.0 * p, 2)
+                   for k, v in self.motor.i_dag.items() if v > 0}}
 
 
 class Modell(VannEntitet, SensorEntity):

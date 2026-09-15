@@ -1,8 +1,10 @@
 {
   "domain": "ki_vann",
   "name": "KI Vann",
-  "version": "1.0.0",
-  "codeowners": ["@SebastianKristo"],
+  "version": "1.0.2",
+  "codeowners": [
+    "@SebastianKristo"
+  ],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/SebastianKristo/ki-vann",
